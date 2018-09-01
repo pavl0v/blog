@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Common.Client;
 using Blog.Data;
 using Blog.Data.Interfaces;
 using Blog.Data.Mocks;
@@ -27,11 +28,14 @@ namespace Blog.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddSingleton<IPostsRepository, PostsRepositoryMock>();
             services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
             services.AddSingleton(typeof(RepositoryFacade));
+
+            services.AddHttpClient<PostsService>();
+            services.AddHttpClient<UsersService>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +46,13 @@ namespace Blog.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            //app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}");
+            });
         }
     }
 }
