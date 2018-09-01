@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Blog.Common.Client
+namespace Blog.Client.Services
 {
-    public static class HttpContentExtensions
+    static class HttpContentExtensions
     {
         public static async Task<T> ReadAsJsonAsync<T>(this HttpContent content)
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace Blog.Common.Client
+namespace Blog.Client.Services
 {
     public abstract class ServiceBase
     {
