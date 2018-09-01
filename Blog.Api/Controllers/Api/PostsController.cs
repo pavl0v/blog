@@ -11,17 +11,17 @@ namespace Blog.Api.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : BlogApiControllerBase
+    public class PostsController : BlogApiControllerBase
     {
-        public UsersController(RepositoryFacade repositoryFacade) : base(repositoryFacade)
+        public PostsController(RepositoryFacade repositoryFacade) : base(repositoryFacade)
         {
             //
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<UserDto> Get(string id)
+        [HttpGet("all")]
+        public ActionResult<IEnumerable<PostDto>> GetAll()
         {
-            return RepositoryFacade.Users.Get(id);
+            return RepositoryFacade.Posts.GetAllPosts().ToArray();
         }
     }
 }
