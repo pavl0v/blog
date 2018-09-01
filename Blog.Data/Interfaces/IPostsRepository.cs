@@ -10,6 +10,7 @@ namespace Blog.Data.Interfaces
         int CreatePost(PostDto post);
         int DeletePost(string postId);
         PostDto GetByPostId(string postId);
-        IEnumerable<PostDto> GetByUserId(string userId);
+        IEnumerable<PostDto> GetAllPosts();
+        IEnumerable<PostDto> GetPostsByUserId(string userId);
     }
 }

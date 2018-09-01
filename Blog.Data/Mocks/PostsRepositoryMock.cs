@@ -61,6 +61,11 @@ namespace Blog.Data.Mocks
             return res;
         }
 
+        public IEnumerable<PostDto> GetAllPosts()
+        {
+            return _posts.Values;
+        }
+
         public PostDto GetByPostId(string postId)
         {
             if (string.IsNullOrWhiteSpace(postId))
@@ -81,7 +86,7 @@ namespace Blog.Data.Mocks
             return res;
         }
 
-        public IEnumerable<PostDto> GetByUserId(string userId)
+        public IEnumerable<PostDto> GetPostsByUserId(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentNullException(nameof(userId));
