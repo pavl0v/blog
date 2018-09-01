@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Blog.Client.Services;
@@ -9,7 +10,9 @@ using Blog.Data.Interfaces;
 using Blog.Data.Mocks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,11 +68,24 @@ namespace Blog.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
             else
-                app.UseExceptionHandler("/error");
+            {
+                app.UseExceptionHandler(options =>
+                {
+                    options.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        context.Response.ContentType = "text/html";
+                        var ex = context.Features.Get<IExceptionHandlerFeature>();
+                        if (ex != null)
+                        {
+                            var err = $"<h1>Error: {ex.Error.Message}</h1>{ex.Error.StackTrace }";
+                            await context.Response.WriteAsync(err).ConfigureAwait(false);
+                        }
+                    });
+                });
+            }
+            app.UseStatusCodePages();
 
             //app.UseMvc();
             app.UseAuthentication();
@@ -77,7 +93,7 @@ namespace Blog.Api
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=login}/{action=index}");
+                    template: "{controller=login}/{action=index}/{id?}");
             });
         }
     }

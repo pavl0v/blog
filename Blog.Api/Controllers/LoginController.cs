@@ -19,10 +19,9 @@ namespace Blog.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string returnUrl = "")
+        public IActionResult Index()
         {
-            var loginViewModel = new LoginViewModel { Username = "4"};
-            return View(loginViewModel);
+            return View();
         }
 
         [HttpPost]
@@ -40,7 +39,6 @@ namespace Blog.Api.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                
             }
 
             return View(model);
