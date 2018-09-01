@@ -9,19 +9,18 @@ namespace Blog.Api.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly AuthService _authService;
         private readonly PostsService _postsService;
 
-        public HomeController(AuthService authService, PostsService postsService)
+        public HomeController(PostsService postsService)
         {
-            _authService = authService;
             _postsService = postsService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = await _authService.GetToken("user", "password1");
-            var r = await _postsService.GetAllPosts(token.Token);
+            var token = Request.Cookies["token"];
+            var r = await _postsService.GetAllPosts(token);
             return View();
         }
     }

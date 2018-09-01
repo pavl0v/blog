@@ -66,13 +66,18 @@ namespace Blog.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+            else
+                app.UseExceptionHandler("/error");
+
             //app.UseMvc();
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}");
+                    template: "{controller=login}/{action=index}");
             });
         }
     }

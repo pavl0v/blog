@@ -1,0 +1,17 @@
+﻿@model Blog.Api.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<h2>Login</h2>
+
+<form method="post" asp-controller="Login" asp-action="Index">
+    <div>
+        <label asp-for="username">Login</label>
+        <input asp-for="username" name="username" />
+
+        <label asp-for="password">Password</label>
+        <input asp-for="password" name="password" />
+    </div>
+    <input type="submit" value="Login" />
+</form> 
