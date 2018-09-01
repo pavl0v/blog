@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Blog.Common.Client;
+using Blog.Client.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Api.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UsersService _usersService;
+        private readonly AuthService _authService;
+        private readonly PostsService _postsService;
 
-        public HomeController(UsersService usersService)
+        public HomeController(AuthService authService, PostsService postsService)
         {
-            _usersService = usersService;
+            _authService = authService;
+            _postsService = postsService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var r = await _usersService.Get("1");
+            var token = await _authService.GetToken("user", "password1");
+            var r = await _postsService.GetAllPosts(token.Token);
             return View();
         }
     }
