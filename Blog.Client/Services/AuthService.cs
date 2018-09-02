@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,19 +18,17 @@ namespace Blog.Client.Services
 
         public async Task<TokenDto> GetToken(string login, string password)
         {
-            var formContent = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("login", login),
-                new KeyValuePair<string, string>("password", password)
-            });
+            // Allow service side to accept JSON
+            //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = await Client.PostAsync("auth/token", formContent);
+            var user = new UserDto { Login = login, Password = password };
+            var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+
+            var response = await Client.PostAsync("auth/token", content);
             if (!response.IsSuccessStatusCode)
                 return new TokenDto { Name = login, Token = "" };
 
-            var result = await response.Content.ReadAsJsonAsync<TokenDto>();
-
-            return result;
+            return await response.Content.ReadAsJsonAsync<TokenDto>();
         }
     }
 }

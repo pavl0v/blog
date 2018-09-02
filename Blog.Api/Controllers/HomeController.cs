@@ -20,9 +20,8 @@ namespace Blog.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var token = Request.Cookies["token"];
-            var r = await _postsService.GetAllPosts(token);
-            return View(new HomeViewModel { Posts = r });
+            var posts = await _postsService.GetAllPosts(Request.Cookies["token"]);
+            return View(new HomeViewModel { Posts = posts });
         }
     }
 }

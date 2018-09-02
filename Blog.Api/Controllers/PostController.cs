@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blog.Client.Services;
 using Blog.Common.Dto;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Api.Controllers

@@ -18,8 +18,12 @@ namespace Blog.Client.Services
         public async Task<int> CreatePost(PostDto post, string token = null)
         {
             if (!string.IsNullOrWhiteSpace(token))
+            {
+                // Set Authentication header with JWT value
                 Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+            // Allow service side to accept JSON
+            //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             var content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
             var response = await Client.PostAsync("posts", content);

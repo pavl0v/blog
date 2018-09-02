@@ -34,14 +34,17 @@ namespace Blog.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Data repositories
             services.AddSingleton<IPostsRepository, PostsRepositoryMock>();
             services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
             services.AddSingleton(typeof(RepositoryFacade));
 
+            // Client services
             services.AddHttpClient<AuthService>();
             services.AddHttpClient<PostsService>();
             services.AddHttpClient<UsersService>();
 
+            // Set JWT authentication
             var authParameters = new AuthParameters();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -70,6 +73,7 @@ namespace Blog.Api
             }
             else
             {
+                // Custom error handler
                 app.UseExceptionHandler(options =>
                 {
                     options.Run(async context =>

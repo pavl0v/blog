@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Blog.Common.Dto;
 using Blog.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,12 +23,9 @@ namespace Blog.Api.Controllers.Api
         }
 
         [HttpPost("token")]
-        public async Task Token()
+        public async Task Token([FromBody] UserDto user)
         {
-            var login = Request.Form["login"];
-            var password = Request.Form["password"];
-
-            var identity = GetIdentity(login, password);
+            var identity = GetIdentity(user?.Login, user?.Password);
             if (identity == null)
             {
                 Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -37,7 +35,7 @@ namespace Blog.Api.Controllers.Api
 
             var now = DateTime.UtcNow;
             var authParameters = new AuthParameters();
-            var jwt = new JwtSecurityToken(
+            var token = new JwtSecurityToken(
                 issuer: authParameters.Issuer,
                 audience: authParameters.Audience,
                 notBefore: now,
@@ -45,10 +43,10 @@ namespace Blog.Api.Controllers.Api
                 expires: now.Add(TimeSpan.FromMinutes(authParameters.Lifetime)),
                 signingCredentials: new SigningCredentials(authParameters.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-            string encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            string encodedToken = new JwtSecurityTokenHandler().WriteToken(token);
             var response = new
             {
-                access_token = encodedJwt,
+                access_token = encodedToken,
                 username = identity.Name
             };
 
@@ -58,10 +56,15 @@ namespace Blog.Api.Controllers.Api
 
         private ClaimsIdentity GetIdentity(string login, string password)
         {
+            if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
+                return null;
+
             var user = RepositoryFacade.Users.Get(login, password);
             if (user == null)
                 return null;
 
+            // User ID is stored in default role claim
+            // TODO : create custom ID claim
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),

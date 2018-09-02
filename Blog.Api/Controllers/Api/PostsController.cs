@@ -31,8 +31,8 @@ namespace Blog.Api.Controllers.Api
         [Authorize]
         public ActionResult<int> Create([FromBody] PostDto post)
         {
-            // TODO : идентификатор записан в стандартный claim роли
-            // нужно сделать спец claim
+            // User ID is stored in default role claim
+            // TODO : create custom ID claim in Api.AuthController
 
             var claim = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role);
             var userId = claim.Value;
