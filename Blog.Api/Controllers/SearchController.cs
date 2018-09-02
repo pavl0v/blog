@@ -41,6 +41,11 @@ namespace Blog.Api.Controllers
                 searchResult = await _postsService.GetByText(model.Text, Request.Cookies["token"]);
                 DistinctPosts(posts, searchResult);
             }
+            if (!string.IsNullOrWhiteSpace(model.Username))
+            {
+                searchResult = await _postsService.GetByUsername(model.Username, Request.Cookies["token"]);
+                DistinctPosts(posts, searchResult);
+            }
 
             model.Posts = posts.ToList();
 

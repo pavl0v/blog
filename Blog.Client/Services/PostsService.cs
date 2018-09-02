@@ -104,5 +104,27 @@ namespace Blog.Client.Services
 
             return searchResult;
         }
+
+        public async Task<IEnumerable<PostDto>> GetByUsername(string username, string token = null)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                return new List<PostDto>();
+
+            if (!string.IsNullOrWhiteSpace(token))
+                Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            List<PostDto> searchResult = new List<PostDto>();
+            var response = await Client.GetAsync(string.Format("posts/username/{0}", username));
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadAsJsonAsync<IEnumerable<PostDto>>();
+            foreach (var post in result)
+            {
+                if (searchResult.Any(x => x.Id == post.Id))
+                    continue;
+                searchResult.Add(post);
+            }
+
+            return searchResult;
+        }
     }
 }

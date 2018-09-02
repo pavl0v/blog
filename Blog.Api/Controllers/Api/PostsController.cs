@@ -34,9 +34,10 @@ namespace Blog.Api.Controllers.Api
             // User ID is stored in default role claim
             // TODO : create custom ID claim in Api.AuthController
 
-            var claim = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role);
-            var userId = claim.Value;
-            post.UserId = userId;
+            var claimName = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name);
+            var claimRole = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role);
+            post.UserId = claimRole.Value;
+            post.Username = claimName.Value;
 
             return RepositoryFacade.Posts.CreatePost(post);
         }
@@ -53,6 +54,13 @@ namespace Blog.Api.Controllers.Api
         public ActionResult<IEnumerable<PostDto>> GetByText(string text)
         {
             return RepositoryFacade.Posts.GetPostsByText(text).ToArray();
+        }
+
+        [HttpGet("username/{username}")]
+        [Authorize]
+        public ActionResult<IEnumerable<PostDto>> GetByUsername(string username)
+        {
+            return RepositoryFacade.Posts.GetPostsByUsername(username).ToArray();
         }
     }
 }

@@ -21,20 +21,23 @@ namespace Blog.Data.Mocks
                 Message = "Welcome post of user1",
                 Tags = new List<string> { "tag1" },
                 UserId = "1",
+                Username = "user1"
             });
             _posts.Add("2", new PostDto
             {
                 Id = "2",
                 Message = "Welcome post of user2",
                 Tags = new List<string> { "tag1", "tag2" },
-                UserId = "2"
+                UserId = "2",
+                Username = "user2"
             });
             _posts.Add("3", new PostDto
             {
                 Id = "3",
                 Message = "Welcome post of user3",
                 Tags = null,
-                UserId = "3"
+                UserId = "3",
+                Username = "user3"
             });
         }
 
@@ -127,6 +130,14 @@ namespace Blog.Data.Mocks
                 throw new ArgumentNullException(nameof(userId));
 
             return _posts.Values.Where(x => x.UserId == userId);
+        }
+
+        public IEnumerable<PostDto> GetPostsByUsername(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentNullException(nameof(username));
+
+            return _posts.Values.Where(x => x.Username == username);
         }
     }
 }
