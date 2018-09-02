@@ -1,7 +1,24 @@
-﻿
+﻿@model Blog.Api.ViewModels.HomeViewModel
 @{
     ViewData["Title"] = "View";
 }
 
 <h2>View</h2>
-
+<a href="~/Post">Создать</a>
+<table>
+    <thead>
+        <tr>
+            <th>Login</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model.Posts)
+        {
+            <tr>
+                <td>@post.UserId</td>
+                <td>@post.Message</td>
+            </tr>
+        }
+    </tbody>
+</table>

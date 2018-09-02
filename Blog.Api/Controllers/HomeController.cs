@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Api.ViewModels;
 using Blog.Client.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace Blog.Api.Controllers
         {
             var token = Request.Cookies["token"];
             var r = await _postsService.GetAllPosts(token);
-            return View();
+            return View(new HomeViewModel { Posts = r });
         }
     }
 }

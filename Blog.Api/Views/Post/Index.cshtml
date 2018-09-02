@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Post";
+}
+
+<h2>Post</h2>
+
+<form method="post" asp-controller="Post" asp-action="Index">
+    <div>
+        <label asp-for="message">Message</label>
+        <input asp-for="message" name="message" />
+    </div>
+    <input type="submit" value="Create" />
+</form>

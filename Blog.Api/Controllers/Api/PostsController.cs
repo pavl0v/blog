@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Blog.Common.Dto;
 using Blog.Data;
@@ -24,6 +25,20 @@ namespace Blog.Api.Controllers.Api
         public ActionResult<IEnumerable<PostDto>> GetAll()
         {
             return RepositoryFacade.Posts.GetAllPosts().ToArray();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult<int> Create([FromBody] PostDto post)
+        {
+            // TODO : идентификатор записан в стандартный claim роли
+            // нужно сделать спец claim
+
+            var claim = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role);
+            var userId = claim.Value;
+            post.UserId = userId;
+
+            return RepositoryFacade.Posts.CreatePost(post);
         }
     }
 }
