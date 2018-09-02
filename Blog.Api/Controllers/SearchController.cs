@@ -56,7 +56,7 @@ namespace Blog.Api.Controllers
         {
             foreach(var sr in searchResult)
             {
-                if (posts.Any(x => x.Id == sr.Id))
+                if (posts.Any(x => x.PostId == sr.PostId))
                     continue;
                 posts.Add(sr);
             }

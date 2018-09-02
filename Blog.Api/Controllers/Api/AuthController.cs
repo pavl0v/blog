@@ -68,7 +68,7 @@ namespace Blog.Api.Controllers.Api
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Id)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserId.ToString())
             };
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 

@@ -14,9 +14,9 @@ namespace Blog.Data.Mocks
         public UsersRepositoryMock()
         {
             _users = new List<UserDto>();
-            _users.Add(new UserDto { Id = "1", Login = "user1", Password = "password1" });
-            _users.Add(new UserDto { Id = "2", Login = "user2", Password = "password2" });
-            _users.Add(new UserDto { Id = "3", Login = "user3", Password = "password3" });
+            _users.Add(new UserDto { UserId = "1", Login = "user1", Password = "password1" });
+            _users.Add(new UserDto { UserId = "2", Login = "user2", Password = "password2" });
+            _users.Add(new UserDto { UserId = "3", Login = "user3", Password = "password3" });
         }
 
         public UserDto Get(string userId)
@@ -24,7 +24,7 @@ namespace Blog.Data.Mocks
             if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentNullException(nameof(userId));
 
-            return _users.FirstOrDefault(x => x.Id == userId);
+            return _users.FirstOrDefault(x => x.UserId == userId);
         }
 
         public UserDto Get(string login, string password)

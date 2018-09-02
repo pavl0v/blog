@@ -17,7 +17,7 @@ namespace Blog.Data.Mocks
 
             _posts.Add("1", new PostDto
             {
-                Id = "1",
+                PostId = "1",
                 Message = "Welcome post of user1",
                 Tags = new List<string> { "tag1" },
                 UserId = "1",
@@ -25,7 +25,7 @@ namespace Blog.Data.Mocks
             });
             _posts.Add("2", new PostDto
             {
-                Id = "2",
+                PostId = "2",
                 Message = "Welcome post of user2",
                 Tags = new List<string> { "tag1", "tag2" },
                 UserId = "2",
@@ -33,7 +33,7 @@ namespace Blog.Data.Mocks
             });
             _posts.Add("3", new PostDto
             {
-                Id = "3",
+                PostId = "3",
                 Message = "Welcome post of user3",
                 Tags = null,
                 UserId = "3",
@@ -50,7 +50,7 @@ namespace Blog.Data.Mocks
 
             try
             {
-                _posts.Add(post.Id, post);
+                _posts.Add(post.PostId, post);
                 res = 1;
             }
             catch(Exception ex)

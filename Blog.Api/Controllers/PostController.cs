@@ -34,7 +34,7 @@ namespace Blog.Api.Controllers
 
             var post = new PostDto
             {
-                Id = Guid.NewGuid().ToString(),
+                PostId = Guid.NewGuid().ToString(),
                 Message = model.Message,
                 Tags = model.Tags.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList(),
                 UserId = string.Empty

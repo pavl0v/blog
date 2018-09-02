@@ -8,6 +8,8 @@ using Blog.Client.Services;
 using Blog.Data;
 using Blog.Data.Interfaces;
 using Blog.Data.Mocks;
+using Blog.Data.Repositories;
+using Blog.Data.Repositories.Mongo;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -35,8 +37,11 @@ namespace Blog.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Data repositories
-            services.AddSingleton<IPostsRepository, PostsRepositoryMock>();
-            services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
+            //services.AddSingleton<IPostsRepository, PostsRepositoryMock>();
+            //services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
+            services.AddSingleton(typeof(MongoDbSettings));
+            services.AddSingleton<IPostsRepository, PostsRepositoryMongo>();
+            services.AddSingleton<IUsersRepository, UsersRepositoryMongo>();
             services.AddSingleton(typeof(RepositoryFacade));
 
             // Client services
