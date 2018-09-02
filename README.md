@@ -29,11 +29,11 @@ db.posts.find()
 
 8. Rebuild Blog.Service project
 
-9. Run Blog.Service.csproj project in a self-hosting mode
+9. Run Blog.Service.csproj project using Blog.Service debug profile in a self-hosting mode
 
 10. Open http://localhost:5000/
 
-11. Login. Enter user details: login/password (i.e. user1/password1) and press Logn button
+11. Login. Enter user details: login/password (i.e. user1/password1) and press Login button
 
 12. Create post. Press Create link, input message and tags (optionally; space symbol as delimiter) and press Create button
 
