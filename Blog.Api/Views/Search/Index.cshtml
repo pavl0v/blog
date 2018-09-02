@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search</h2>
+
+<form method="post" asp-controller="Search" asp-action="Index">
+    <table>
+        <tr>
+            <td style="width: 100px;">Login</td>
+            <td><input asp-for="username" name="username" /></td>
+        </tr>
+        <tr>
+            <td>Tags</td>
+            <td><input asp-for="tags" name="tags" /></td>
+        </tr>
+        <tr>
+            <td>Text</td>
+            <td><input asp-for="text" name="text" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right;"><input type="submit" value="Search" /></td>
+        </tr>
+    </table>
+</form>
+
+<p>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th style="width: 20%">Login</th>
+                <th style="width: 40%">Message</th>
+                <th style="width: 40%">Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Posts != null)
+            {
+                @foreach (var post in Model.Posts)
+                {
+                    <tr>
+                        <td>@post.UserId</td>
+                        <td>@post.Message</td>
+                        <td>
+                            @if (post.Tags != null)
+                            {
+                                @foreach (string tag in post.Tags)
+                                {
+                                    @tag;
+                                    @Html.Raw("&nbsp;");
+                                }
+                            }
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</p>

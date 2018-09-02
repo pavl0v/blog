@@ -40,5 +40,19 @@ namespace Blog.Api.Controllers.Api
 
             return RepositoryFacade.Posts.CreatePost(post);
         }
+
+        [HttpGet("tag/{tag}")]
+        [Authorize]
+        public ActionResult<IEnumerable<PostDto>> GetByTag(string tag)
+        {
+            return RepositoryFacade.Posts.GetPostsByTag(tag).ToArray();
+        }
+
+        [HttpGet("text/{text}")]
+        [Authorize]
+        public ActionResult<IEnumerable<PostDto>> GetByText(string text)
+        {
+            return RepositoryFacade.Posts.GetPostsByText(text).ToArray();
+        }
     }
 }

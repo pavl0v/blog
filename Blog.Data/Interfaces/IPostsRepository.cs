@@ -12,5 +12,7 @@ namespace Blog.Data.Interfaces
         PostDto GetByPostId(string postId);
         IEnumerable<PostDto> GetAllPosts();
         IEnumerable<PostDto> GetPostsByUserId(string userId);
+        IEnumerable<PostDto> GetPostsByTag(string tag);
+        IEnumerable<PostDto> GetPostsByText(string text);
     }
 }

@@ -105,6 +105,22 @@ namespace Blog.Data.Mocks
             return res;
         }
 
+        public IEnumerable<PostDto> GetPostsByTag(string tag)
+        {
+            if (string.IsNullOrWhiteSpace(tag))
+                throw new ArgumentNullException(nameof(tag));
+
+            return _posts.Values.Where(x => x.Tags != null && x.Tags.Contains(tag));
+        }
+
+        public IEnumerable<PostDto> GetPostsByText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                throw new ArgumentNullException(nameof(text));
+
+            return _posts.Values.Where(x => x.Message != null && x.Message.Contains(text));
+        }
+
         public IEnumerable<PostDto> GetPostsByUserId(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
