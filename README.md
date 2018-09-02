@@ -31,11 +31,11 @@ db.posts.find()
 
 9. Open http://localhost:5000/
 
-10. Login. Enter user details: login/password (i.e. user1/password1) and press Login button
+10. **Login.** Enter user details: login/password (i.e. user1/password1) and press Login button
 
-11. Create post. Press Create link, input message and tags (optionally; space symbol as delimiter) and press Create button
+11. **Create post.** Press Create link, input message and tags (optionally; space symbol as delimiter) and press Create button
 
-12. Search posts. Press Search link, input filter data (username and/or tags and/or text) and press Search button
+12. **Search posts.** Press Search link, input filter data (username and/or tags and/or text) and press Search button
 
 
 Keywords
