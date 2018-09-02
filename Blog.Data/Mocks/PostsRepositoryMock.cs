@@ -14,9 +14,28 @@ namespace Blog.Data.Mocks
         public PostsRepositoryMock()
         {
             _posts = new Dictionary<string, PostDto>();
-            _posts.Add("1", new PostDto { Id = "1", Message = "Welcome post of user1", UserId = "1" });
-            _posts.Add("2", new PostDto { Id = "2", Message = "Welcome post of user2", UserId = "2" });
-            _posts.Add("3", new PostDto { Id = "3", Message = "Welcome post of user3", UserId = "3" });
+
+            _posts.Add("1", new PostDto
+            {
+                Id = "1",
+                Message = "Welcome post of user1",
+                Tags = new List<string> { "tag1" },
+                UserId = "1",
+            });
+            _posts.Add("2", new PostDto
+            {
+                Id = "2",
+                Message = "Welcome post of user2",
+                Tags = new List<string> { "tag1", "tag2" },
+                UserId = "2"
+            });
+            _posts.Add("3", new PostDto
+            {
+                Id = "3",
+                Message = "Welcome post of user3",
+                Tags = null,
+                UserId = "3"
+            });
         }
 
         public int CreatePost(PostDto post)

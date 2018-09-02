@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Api.ViewModels;
 using Blog.Client.Services;
 using Blog.Common.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,19 @@ namespace Blog.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string message)
+        public async Task<IActionResult> Index(PostViewModel model)
         {
+            if (model == null || string.IsNullOrWhiteSpace(model.Message))
+                return RedirectToAction("Index", "Home");
+
+            if (string.IsNullOrWhiteSpace(model.Tags))
+                model.Tags = string.Empty;
+
             var post = new PostDto
             {
                 Id = Guid.NewGuid().ToString(),
-                Message = message,
+                Message = model.Message,
+                Tags = model.Tags.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList(),
                 UserId = string.Empty
             };
 
