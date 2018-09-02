@@ -17,27 +17,25 @@ db.posts.insertOne({PostId:"3", UserId:"3", Username:"user3", Message:"Welcome m
 db.posts.find()
 ```
 
-3. Open Blog.sln solution in Visual Studio 2017
+3. Open **Blog.sln** solution in Visual Studio 2017
 
 4. Restore necessary NuGet packages
 
-5. Set App URL http://localhost:5000 in Debug properties of Blog.Service.csproj project
+5. Set **Blog.Service.csproj** as startup project
 
-6. Modify Blog.Data.Repositories.Mongo.MongoDbSettings.cs and/or Blog.Client.Services.ServiceBase.cs if needed
+6. Modify *Blog.Data.Repositories.Mongo.MongoDbSettings.cs* if needed
 
-7. Set Blog.Service as startup project
+7. Rebuild **Blog.sln** solution
 
-8. Rebuild Blog.Service project
+8. Run **Blog.Service.csproj** project using *Blog.Service* debug profile in a self-hosting mode
 
-9. Run Blog.Service.csproj project using Blog.Service debug profile in a self-hosting mode
+9. Open http://localhost:5000/
 
-10. Open http://localhost:5000/
+10. Login. Enter user details: login/password (i.e. user1/password1) and press Login button
 
-11. Login. Enter user details: login/password (i.e. user1/password1) and press Login button
+11. Create post. Press Create link, input message and tags (optionally; space symbol as delimiter) and press Create button
 
-12. Create post. Press Create link, input message and tags (optionally; space symbol as delimiter) and press Create button
-
-13. Search posts. Press Search link, input filter data (username and/or tags and/or text) and press Search button
+12. Search posts. Press Search link, input filter data (username and/or tags and/or text) and press Search button
 
 
 Keywords
