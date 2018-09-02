@@ -62,22 +62,12 @@ namespace Blog.Client.Services
             if (string.IsNullOrWhiteSpace(tags))
                 return new List<PostDto>();
 
-            if (!string.IsNullOrWhiteSpace(token))
-                Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             var arr = tags.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             List<PostDto> searchResult = new List<PostDto>();
             foreach(var tag in arr)
-            { 
-                var response = await Client.GetAsync(string.Format("posts/tag/{0}", tag));
-                response.EnsureSuccessStatusCode();
-                var result = await response.Content.ReadAsJsonAsync<IEnumerable<PostDto>>();
-                foreach (var post in result)
-                {
-                    if (searchResult.Any(x => x.Id == post.Id))
-                        continue;
-                    searchResult.Add(post);
-                }
+            {
+                var result = await GetBy(string.Format("posts/tag/{0}", tag), token);
+                DistinctPosts(searchResult, result);
             }
 
             return searchResult;
@@ -88,21 +78,7 @@ namespace Blog.Client.Services
             if (string.IsNullOrWhiteSpace(text))
                 return new List<PostDto>();
 
-            if (!string.IsNullOrWhiteSpace(token))
-                Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            List<PostDto> searchResult = new List<PostDto>();
-            var response = await Client.GetAsync(string.Format("posts/text/{0}", text));
-            response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadAsJsonAsync<IEnumerable<PostDto>>();
-            foreach (var post in result)
-            {
-                if (searchResult.Any(x => x.Id == post.Id))
-                    continue;
-                searchResult.Add(post);
-            }
-
-            return searchResult;
+            return await GetBy(string.Format("posts/text/{0}", text), token);
         }
 
         public async Task<IEnumerable<PostDto>> GetByUsername(string username, string token = null)
@@ -110,21 +86,32 @@ namespace Blog.Client.Services
             if (string.IsNullOrWhiteSpace(username))
                 return new List<PostDto>();
 
+            return await GetBy(string.Format("posts/username/{0}", username), token);
+        }
+
+        private async Task<IEnumerable<PostDto>> GetBy(string url, string token = null)
+        {
             if (!string.IsNullOrWhiteSpace(token))
                 Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             List<PostDto> searchResult = new List<PostDto>();
-            var response = await Client.GetAsync(string.Format("posts/username/{0}", username));
+            var response = await Client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsJsonAsync<IEnumerable<PostDto>>();
-            foreach (var post in result)
-            {
-                if (searchResult.Any(x => x.Id == post.Id))
-                    continue;
-                searchResult.Add(post);
-            }
+            DistinctPosts(searchResult, result);
 
             return searchResult;
+        }
+
+        // TODO: remove duplicate method DistinctPosts
+        private void DistinctPosts(List<PostDto> posts, IEnumerable<PostDto> searchResult)
+        {
+            foreach (var sr in searchResult)
+            {
+                if (posts.Any(x => x.Id == sr.Id))
+                    continue;
+                posts.Add(sr);
+            }
         }
     }
 }
