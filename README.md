@@ -21,22 +21,23 @@ db.posts.find()
 
 4. Restore necessary NuGet packages
 
-5. Modify Blog.Data.Repositories.Mongo.MongoDbSettings.cs and/or Blog.Client.Services.ServiceBase.cs if needed
+5. Set App URL http://localhost:5000 in Debug properties of Blog.Service.csproj project
 
-6. Set Blog.Service as startup project
+6. Modify Blog.Data.Repositories.Mongo.MongoDbSettings.cs and/or Blog.Client.Services.ServiceBase.cs if needed
 
-7. Rebuild Blog.Service project
+7. Set Blog.Service as startup project
 
-8. Run Blog.Service project
+8. Rebuild Blog.Service project
 
+9. Run Blog.Service.csproj project in a self-hosting mode
 
-9. Open http://localhost:5000/
+10. Open http://localhost:5000/
 
-10. Login. Enter user details: login/password (i.e. user1/password1) and press Logn button
+11. Login. Enter user details: login/password (i.e. user1/password1) and press Logn button
 
-11. Create post. Press Create link, input message and tags (optionally; space symbol as delimiter) and press Create button
+12. Create post. Press Create link, input message and tags (optionally; space symbol as delimiter) and press Create button
 
-12. Search posts. Press Search link, input filter data (username and/or tags and/or text) and press Search button
+13. Search posts. Press Search link, input filter data (username and/or tags and/or text) and press Search button
 
 
 Keywords
