@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Blog.Api": {
+    "Blog.Service": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
