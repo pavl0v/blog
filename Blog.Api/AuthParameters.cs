@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Blog.Api
+namespace Blog.Service
 {
     public class AuthParameters
     {

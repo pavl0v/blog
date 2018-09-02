@@ -7,7 +7,7 @@ using Blog.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Blog.Api.Controllers.Api
+namespace Blog.Service.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]

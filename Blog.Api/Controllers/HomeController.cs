@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Blog.Api.ViewModels;
+using Blog.Service.ViewModels;
 using Blog.Client.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Blog.Api.Controllers
+namespace Blog.Service.Controllers
 {
     public class HomeController : Controller
     {

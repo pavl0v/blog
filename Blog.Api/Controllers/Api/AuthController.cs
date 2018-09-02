@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
-namespace Blog.Api.Controllers.Api
+namespace Blog.Service.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]

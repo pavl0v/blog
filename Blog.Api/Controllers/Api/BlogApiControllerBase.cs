@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blog.Api.Controllers.Api
+namespace Blog.Service.Controllers.Api
 {
     public class BlogApiControllerBase : ControllerBase
     {
